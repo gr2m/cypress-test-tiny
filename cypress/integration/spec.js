@@ -1,18 +1,24 @@
 describe('CORS + 301 redirect', () => {
-  it('works', () => {
+  it('redirects to foo', () => {
     return fetch('http://localhost:3000', {
       headers: {
-        'x-foo': 'foo'
+        'x-redirect-to': 'foo'
       }
     })
       .then(response => response.text())
       .then(result => {
-        expect(result).to.equal('ok')
+        expect(result).to.equal('foo')
       })
-
-      .catch(error => {
-        debugger
-        throw error
+  })
+  it('redirects to bar', () => {
+    return fetch('http://localhost:3000', {
+      headers: {
+        'x-redirect-to': 'bar'
+      }
+    })
+      .then(response => response.text())
+      .then(result => {
+        expect(result).to.equal('bar')
       })
   })
 })

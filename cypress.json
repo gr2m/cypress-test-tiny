@@ -1,3 +1,4 @@
 {
-  "videoRecording": true
+  "integrationFolder": "cypress/integration",
+  "videoRecording": false
 }

@@ -1,12 +1,49 @@
 # cypress-test-tiny
 
-> Tiny Cypress E2E test case
+To reproduce
 
-Build status | Description
-:--- | :---
-[![Buildkite status](https://badge.buildkite.com/92a6cb692df44e8ab1f5ba77e75aae920042353955a19d5389.svg)](https://buildkite.com/cypress-io/cypress-test-tiny) | Mac
-[![CircleCI](https://circleci.com/gh/cypress-io/cypress-test-tiny.svg?style=svg)](https://circleci.com/gh/cypress-io/cypress-test-tiny) | Linux
-[![Build status](https://ci.appveyor.com/api/projects/status/bpwo4jpue61xsbi5?svg=true)](https://ci.appveyor.com/project/cypress-io/cypress-test-tiny) | Windows
-[ ![Codeship Status for cypress-io/cypress-test-tiny](https://app.codeship.com/projects/98843020-d6d6-0135-402d-5207bc7a4d86/status?branch=master)](https://app.codeship.com/projects/263289) | Codeship Basic
+```
+npm install
+node server.js
+```
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/cypress-io/cypress-test-tiny.svg)](https://greenkeeper.io/)
+the in 2nd terminal
+
+```
+cypress run
+```
+
+Test will fail with something like this
+
+```
+1) CORS + 301 redirect works:
+   TypeError: Failed to fetch
+    at TypeError (native)
+
+
+
+
+(Tests Finished)
+
+- Tests:           1
+- Passes:          0
+- Failures:        1
+- Pending:         0
+- Duration:        13 seconds
+- Screenshots:     1
+- Video Recorded:  false
+- Cypress Version: 1.4.2
+```
+
+To see the error causing this, run
+
+```
+cypress run --headed
+```
+
+The moment you see the Cypress window, press Alt + Command + i to open web developer tools.
+It will stop at the debugger statement in `spec.js` and show this error:
+
+> Fetch API cannot load http://localhost:3000/. The request was redirected to 'http://localhost:3000/foo', which is disallowed for cross-origin requests that require preflight.
+
+When running with `cypress open` the error does not occur
